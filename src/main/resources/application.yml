@@ -1,0 +1,17 @@
+# Nome dell'applicazione, utile per log e monitoring
+spring:
+  application:
+    name: cloud-native-api
+  # Diciamo a Spring di importare configurazioni esterne da AWS Secrets Manager
+  config:
+    import: "aws-secretsmanager:travel-agency/dev/app"
+  cloud:
+    aws:
+      region:
+        static: sa-east-1 # <-- MODIFICA QUESTA RIGA con la tua regione AWS
+      secretsmanager:
+        enabled: true
+
+# Opzionale: Cambiamo la porta per evitare conflitti se hai altre app in esecuzione
+server:
+  port: 8080
