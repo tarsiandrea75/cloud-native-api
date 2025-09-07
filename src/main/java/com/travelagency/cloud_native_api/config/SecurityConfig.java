@@ -15,15 +15,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            // Definiamo le regole di autorizzazione per le richieste HTTP
+            // Disabilitiamo CSRF per le API stateless. Useremo altri meccanismi di sicurezza in futuro (es. JWT).
+            .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
-                    // Permetti a CHIUNQUE (permitAll) di accedere all'endpoint "/greeting"
-                    .requestMatchers("/greeting").permitAll()
-                    // Per QUALSIASI ALTRA richiesta (anyRequest), l'utente deve essere autenticato
+                    // Permetti l'accesso pubblico a /greeting E a QUALSIASI cosa sotto /api/
+                    .requestMatchers("/greeting", "/api/**").permitAll()
                     .anyRequest().authenticated()
             )
-            // Abilita il form di login di default per le pagine protette
             .formLogin(withDefaults());
         return http.build();
     }

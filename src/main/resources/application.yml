@@ -8,9 +8,20 @@ spring:
   cloud:
     aws:
       region:
-        static: sa-east-1 # <-- MODIFICA QUESTA RIGA con la tua regione AWS
+        static: sa-east-1 # La tua regione
       secretsmanager:
         enabled: true
+  # ======================================================================================
+  # NUOVA SEZIONE: Questa è l'unica parte che ho aggiunto.
+  # Dice a Spring come comportarsi con il database.
+  # ======================================================================================
+  jpa:
+    # Questa opzione dice a Hibernate di creare o aggiornare automaticamente le tabelle
+    # del database basandosi sulle nostre future classi Java (@Entity). Utilissimo per lo sviluppo!
+    hibernate:
+      ddl-auto: update
+    # Mostra nei log l'SQL che viene eseguito. Utile per il debug.
+    show-sql: true
 
 # Opzionale: Cambiamo la porta per evitare conflitti se hai altre app in esecuzione
 server:
